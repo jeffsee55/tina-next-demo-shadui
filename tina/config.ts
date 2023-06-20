@@ -123,9 +123,25 @@ export default defineConfig({
         path: "content/posts",
         fields: [
           { name: "title", label: "Title", type: "string" },
+          {
+            name: "author",
+            label: "Author",
+            type: "reference",
+            collections: ["author"],
+          },
           { name: "image", label: "Image", type: "image" },
           { name: "description", label: "Description", type: "string" },
           { name: "body", label: "Body", type: "rich-text", isBody: true },
+        ],
+      },
+      {
+        label: "Author",
+        name: "author",
+        format: "md",
+        path: "content/authors",
+        fields: [
+          { name: "name", label: "Name", type: "string" },
+          { name: "imageUrl", label: "Image URL", type: "image" },
         ],
       },
     ],

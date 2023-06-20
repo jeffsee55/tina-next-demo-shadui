@@ -155,6 +155,7 @@ export function FeaturedReadingAlt({
   asLink,
   ...post
 }: PostQuery["post"] & { asLink?: boolean }) {
+  console.log(post)
   return (
     <div className="grid-rows-12 mx-auto grid grid-cols-1 overflow-hidden rounded-lg bg-card shadow-md lg:grid-cols-12 lg:grid-rows-1">
       <div className="relative col-span-6  px-4 py-8 sm:px-12 sm:py-16 lg:col-span-5 lg:min-h-[400px]">
@@ -186,12 +187,15 @@ export function FeaturedReadingAlt({
           <Wavy className="absolute bottom-0 right-0 h-[700px] w-[700px] translate-x-1/2 translate-y-1/2 -rotate-45 opacity-10" />
         </div>
         <div className="absolute inset-x-0 bottom-0 z-10 flex translate-y-1/2 justify-center lg:bottom-16 lg:left-auto lg:right-0 lg:translate-x-1/2">
-          <div className="relative h-20 w-20 overflow-hidden rounded-full ring-4 ring-card sm:h-24 sm:w-24 md:ring-8">
+          <div
+            data-tina-field={tinaField(post.author, "image")}
+            className="relative h-20 w-20 overflow-hidden rounded-full ring-4 ring-card sm:h-24 sm:w-24 md:ring-8"
+          >
             <Image
               fill={true}
               className="object-cover"
-              alt=""
-              src={featuredPost.author.imageUrl}
+              alt={post.author?.name || ""}
+              src={post.author?.imageUrl || ""}
             />
           </div>
         </div>

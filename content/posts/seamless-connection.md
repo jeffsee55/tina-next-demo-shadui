@@ -1,12 +1,12 @@
 ---
-title: Introducing Llama Link Social
+title: Lorem Ipsum Dolor Met
+author: content/authors/adam.md
+image: /ssscribble.svg
 description: >-
-  We believe that communication should be fun, engaging, and memorable. With
-  LlamaLink, you can enjoy video calls that not only serve their purpose but
-  also bring a smile to your face and create lasting memories. Join us on this
-  llama-filled adventure and experience video calling like never before.
-image: /ttten.svg
-author: content/authors/james.md
+  Seamless Connection: LlamaLink ensures crystal-clear audio and high-definition
+  video quality, providing a seamless connection between users. Say goodbye to
+  buffering and dropped calls, and immerse yourself in smooth, uninterrupted
+  conversations
 ---
 
 # The Joke Tax Chronicles
