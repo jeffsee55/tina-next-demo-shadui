@@ -1,36 +1,78 @@
+import Link from "next/link"
+import { PageBlocksWelcomeHero } from "@/tina/__generated__/types"
 import { ArrowRight } from "lucide-react"
+import { tinaField } from "tinacms/dist/react"
+import { TinaMarkdown } from "tinacms/dist/rich-text"
 
 import { Button } from "@/components/ui/button"
 import { IconList } from "@/components/icons"
 
-export function WelcomeHero() {
+export function WelcomeHero(props: PageBlocksWelcomeHero) {
   return (
     <section className="relative overflow-hidden">
       <div className="absolute inset-0 mx-auto h-full w-full max-w-[1600px]">
         <IconWrapper />
       </div>
       <div className="relative flex flex-col items-center gap-2 py-24">
-        <div className="px-4 py-8 text-center">
-          <h1 className="text-5xl font-extrabold leading-tight tracking-tighter text-primary md:text-7xl">
-            Talk to llama,
-          </h1>
-          <h1 className="text-5xl font-extrabold leading-tight tracking-tighter text-primary md:text-7xl">
-            Share the{" "}
-            <span className="bg-gradient-to-b from-blue-300 to-pink-600 bg-clip-text text-transparent">
-              drama
-            </span>
-          </h1>
+        <div
+          className="px-4 py-8 text-center"
+          data-tina-field={tinaField(props, "message")}
+        >
+          <TinaMarkdown
+            components={{
+              h1: (props) => (
+                <h1 className="text-5xl font-extrabold leading-tight tracking-tighter text-primary md:text-7xl">
+                  {props?.children}
+                </h1>
+              ),
+              bold: (props) => {
+                return (
+                  <span className="bg-gradient-to-b from-blue-300 to-pink-600 bg-clip-text text-transparent">
+                    {props?.children}
+                  </span>
+                )
+              },
+              p: (props) => {
+                return (
+                  <p className="mt-8 max-w-[700px] px-2 text-center text-xl text-muted-foreground">
+                    {props?.children}
+                  </p>
+                )
+              },
+            }}
+            content={props.message}
+          />
         </div>
-        <p className="max-w-[700px] px-2 text-center text-xl text-muted-foreground">
-          Connect, Communicate, and Create Memorable Moments with Llama Video
-          Calls
-        </p>
         <div className="flex gap-5 py-12">
-          <Button size="lg">Get Started</Button>
-          <Button size="lg" variant={"ghost"}>
-            Learn More
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
+          {props.links?.map((link) => {
+            switch (link?.style) {
+              case "button": {
+                return (
+                  <Link
+                    key={link.link}
+                    href={link.link || ""}
+                    data-tina-field={tinaField(link, "link")}
+                  >
+                    <Button size="lg">{link.label}</Button>
+                  </Link>
+                )
+              }
+              case "simple": {
+                return (
+                  <Link
+                    key={link.link}
+                    data-tina-field={tinaField(link, "link")}
+                    href={link?.link || ""}
+                  >
+                    <Button size="lg" variant={"ghost"}>
+                      Learn More
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
+                )
+              }
+            }
+          })}
         </div>
       </div>
     </section>
