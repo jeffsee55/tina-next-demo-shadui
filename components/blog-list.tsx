@@ -196,8 +196,16 @@ export function FeaturedReadingAlt({
           </div>
         </div>
       </div>
-      <div className="relative col-span-6 aspect-[4/2] lg:col-span-7 lg:aspect-auto">
-        <Image fill={true} className="object-cover" alt="" src="/ssspot.svg" />
+      <div
+        data-tina-field={tinaField(post, "image")}
+        className="relative col-span-6 aspect-[4/2] lg:col-span-7 lg:aspect-auto"
+      >
+        <Image
+          fill={true}
+          className="object-cover"
+          alt=""
+          src={post.image || ""}
+        />
       </div>
     </div>
   )

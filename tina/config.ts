@@ -7,6 +7,12 @@ export default defineConfig({
     publicFolder: "public",
     outputFolder: "admin",
   },
+  media: {
+    tina: {
+      mediaRoot: "",
+      publicFolder: "public",
+    },
+  },
   schema: {
     collections: [
       {
@@ -117,6 +123,7 @@ export default defineConfig({
         path: "content/posts",
         fields: [
           { name: "title", label: "Title", type: "string" },
+          { name: "image", label: "Image", type: "image" },
           { name: "description", label: "Description", type: "string" },
           { name: "body", label: "Body", type: "rich-text", isBody: true },
         ],

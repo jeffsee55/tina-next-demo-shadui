@@ -1,10 +1,11 @@
 ---
-title: Introducing LlamaLink Social
+title: Introducing Llama Link Social
 description: >-
   We believe that communication should be fun, engaging, and memorable. With
   LlamaLink, you can enjoy video calls that not only serve their purpose but
   also bring a smile to your face and create lasting memories. Join us on this
   llama-filled adventure and experience video calling like never before.
+image: /ttten.svg
 ---
 
 # The Joke Tax Chronicles

@@ -31,7 +31,7 @@ export function ClientBlogPage(props: {
             fill={true}
             className="object-cover"
             alt=""
-            src="/ssspot.svg"
+            src={result.data.post.image || ""}
           />
         </div>
       </div>
