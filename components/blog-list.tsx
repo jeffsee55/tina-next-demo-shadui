@@ -1,6 +1,8 @@
 import Image from "next/image"
 import Link from "next/link"
+import { Post, PostQuery } from "@/tina/__generated__/types"
 import { ArrowRight } from "lucide-react"
+import { tinaField } from "tinacms/dist/react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -149,18 +151,25 @@ export function FeaturedReading() {
     </div>
   )
 }
-export function FeaturedReadingAlt({ asLink }: { asLink?: boolean }) {
+export function FeaturedReadingAlt({
+  asLink,
+  ...post
+}: PostQuery["post"] & { asLink?: boolean }) {
   return (
     <div className="grid-rows-12 mx-auto grid grid-cols-1 overflow-hidden rounded-lg bg-card shadow-md lg:grid-cols-12 lg:grid-rows-1">
       <div className="relative col-span-6  px-4 py-8 sm:px-12 sm:py-16 lg:col-span-5 lg:min-h-[400px]">
         <h2
           id="featured-post"
+          data-tina-field={tinaField(post, "title")}
           className="relative text-2xl font-bold text-card-foreground md:text-3xl"
         >
-          <span className="relative">{featuredPost.title}</span>
+          <span className="relative">{post.title}</span>
         </h2>
-        <p className="mt-8 text-lg leading-8 text-primary">
-          {featuredPost.description}
+        <p
+          data-tina-field={tinaField(post, "description")}
+          className="mt-8 text-lg leading-8 text-primary"
+        >
+          {post.description}
         </p>
         {asLink ? (
           <Link

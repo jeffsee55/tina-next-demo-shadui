@@ -105,6 +105,22 @@ export default defineConfig({
           },
         ],
       },
+      {
+        label: "Post",
+        name: "post",
+        format: "md",
+        ui: {
+          router: (args) => {
+            return `/blog/${args.document._sys.breadcrumbs.join("/")}`
+          },
+        },
+        path: "content/posts",
+        fields: [
+          { name: "title", label: "Title", type: "string" },
+          { name: "description", label: "Description", type: "string" },
+          { name: "body", label: "Body", type: "rich-text", isBody: true },
+        ],
+      },
     ],
   },
   // These values will be used by Tina Cloud when we're ready to deploy to our host

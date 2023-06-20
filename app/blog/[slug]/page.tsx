@@ -1,33 +1,15 @@
-import Image from "next/image"
+import client from "@/tina/__generated__/client"
 
-import { FeaturedReadingAlt } from "@/components/blog-list"
-import { Body } from "@/components/blog-post"
-import { Footer } from "@/components/footer"
-import { SiteHeader } from "@/components/site-header"
+import { ClientBlogPage } from "@/components/app/blog-page"
 
-export default function BlogPage() {
-  return (
-    <>
-      <SiteHeader />
-      <div className="relative bg-muted">
-        <div className="container relative z-10 flex flex-col py-8">
-          <FeaturedReadingAlt />
-        </div>
-        <div className="absolute -inset-24 blur-lg">
-          <Image
-            fill={true}
-            className="object-cover"
-            alt=""
-            src="/ssspot.svg"
-          />
-        </div>
-      </div>
-      <div className="relative bg-muted py-8 lg:py-24">
-        <div className="mx-auto max-w-5xl px-8">
-          <Body />
-        </div>
-      </div>
-      <Footer />
-    </>
-  )
+export default async function BlogPage({
+  params,
+}: {
+  params: { slug: string }
+}) {
+  const result = await client.queries.post({
+    relativePath: `${params.slug}.md`,
+  })
+
+  return <ClientBlogPage {...result} />
 }
