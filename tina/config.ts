@@ -10,6 +10,7 @@ export default defineConfig({
       {
         label: "Page",
         name: "page",
+        format: "md",
         path: "content/pages",
         fields: [{ name: "title", label: "Title", type: "string" }],
       },
