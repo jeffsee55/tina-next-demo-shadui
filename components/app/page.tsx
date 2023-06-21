@@ -1,6 +1,7 @@
 "use client"
 
 import { Exact, PageAndNavQuery, PageQuery } from "@/tina/__generated__/types"
+import { Json } from "tinacms/dist/dev-tools"
 import { tinaField, useTina } from "tinacms/dist/react"
 
 import { FeaturedReading } from "@/components/blog-list"
@@ -17,7 +18,6 @@ export function ClientPage(props: {
   query: string
 }) {
   const result = useTina(props)
-  console.log(result)
 
   return (
     <>
@@ -38,10 +38,11 @@ export function ClientPage(props: {
               </div>
             )
           }
+          case "PageBlocksFeaturedReading": {
+            return <FeaturedReading {...block} />
+          }
         }
       })}
-      {/* <FeatureList /> */}
-      <FeaturedReading />
       <Footer {...result.data.global} />
     </>
   )

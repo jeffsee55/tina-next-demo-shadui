@@ -6,7 +6,7 @@ description: >-
   also bring a smile to your face and create lasting memories. Join us on this
   llama-filled adventure and experience video calling like never before.
 image: /ttten.svg
-author: content/authors/james.md
+author: content/authors/adam.md
 ---
 
 # The Joke Tax Chronicles

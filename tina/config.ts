@@ -107,6 +107,23 @@ export default defineConfig({
                   },
                 ],
               },
+              {
+                name: "featuredReading",
+                label: "Featured Reading",
+                fields: [
+                  {
+                    type: "string",
+                    label: "Label",
+                    name: "label",
+                  },
+                  {
+                    type: "reference",
+                    collections: ["post"],
+                    label: "Reference",
+                    name: "reference",
+                  },
+                ],
+              },
             ],
           },
         ],

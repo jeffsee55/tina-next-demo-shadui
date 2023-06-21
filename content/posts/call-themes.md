@@ -1,7 +1,7 @@
 ---
 title: 'Duis accumsan justo diam, eu convallis'
 author: content/authors/james.md
-image: /rrreflection.svg
+image: /ssspot.svg
 description: >-
   Llama Call Themes: Express your personality and set the mood with our range of
   Llama Call Themes. Whether it's a professional meeting, a virtual party, or a

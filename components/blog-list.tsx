@@ -1,6 +1,8 @@
 import Image from "next/image"
 import Link from "next/link"
 import {
+  PageAndNavQuery,
+  PageBlocksFeaturedReading,
   Post,
   PostConnectionQuery,
   PostQuery,
@@ -93,7 +95,11 @@ const posts = [
 
 const featuredPost = posts[0]
 
-export function FeaturedReading() {
+type Block = NonNullable<NonNullable<PageAndNavQuery["page"]["blocks"]>[number]>
+
+type FeatureBlock = Extract<Block, { __typename: "PageBlocksFeaturedReading" }>
+
+export function FeaturedReading(props: FeatureBlock) {
   return (
     <div className="relative">
       <div className="absolute inset-0 overflow-hidden">
@@ -106,21 +112,25 @@ export function FeaturedReading() {
               fill={true}
               className="object-cover"
               alt=""
-              src="ssspot.svg"
+              src={props.reference?.image || ""}
             />
             <div
+              data-tina-field={tinaField(props.reference, "image")}
               className={`absolute inset-0 bg-gray-600 opacity-30 mix-blend-multiply dark:opacity-40`}
               aria-hidden="true"
             />
           </div>
         </div>
         <div className="absolute right-12 top-12 sm:bottom-16 sm:right-16 sm:top-auto">
-          <div className="relative h-12 w-12 overflow-hidden rounded-full ring-4 ring-card sm:h-32 sm:w-32 md:ring-8">
+          <div
+            data-tina-field={tinaField(props.reference, "author")}
+            className="relative h-12 w-12 overflow-hidden rounded-full ring-4 ring-card sm:h-32 sm:w-32 md:ring-8"
+          >
             <Image
               fill={true}
               className="object-cover"
-              alt={featuredPost.author.name}
-              src={featuredPost.author.imageUrl}
+              alt={props.reference?.author?.name || ""}
+              src={props.reference?.author?.imageUrl || ""}
             />
           </div>
         </div>
@@ -128,21 +138,26 @@ export function FeaturedReading() {
           <h2
             id="featured-post"
             className="md:text-md relative mt-4 inline-block border border-white px-2 py-1 text-sm font-bold uppercase tracking-widest text-white"
+            data-tina-field={tinaField(props, "label")}
           >
-            <span className="relative">Latest</span>
+            <span className="relative">{props.label}</span>
           </h2>
           <h2
             id="featured-post"
+            data-tina-field={tinaField(props.reference, "title")}
             className="relative mt-4 text-3xl font-bold text-white md:text-3xl xl:text-5xl"
           >
-            <span className="relative">{featuredPost.title}</span>
+            <span className="relative">{props.reference?.title}</span>
           </h2>
-          <p className="mt-4 hidden text-lg leading-8 text-white lg:block">
-            {featuredPost.description}
+          <p
+            data-tina-field={tinaField(props.reference, "description")}
+            className="mt-4 hidden text-lg leading-8 text-white lg:block"
+          >
+            {props.reference?.description}
           </p>
           <div className="mt-3 flex">
             <Link
-              href={`/blog/${featuredPost.slug}`}
+              href={`/blog/${props.reference?._sys.breadcrumbs.join("/")}`}
               className="text-sm font-semibold leading-6 text-white"
               aria-describedby="featured-post"
             >
