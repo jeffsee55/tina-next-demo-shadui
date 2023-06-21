@@ -253,6 +253,7 @@ export function BlogList(props: PostConnectionQuery["postConnection"]) {
             }
             return (
               <Link
+                key={`/blog/${node._sys.breadcrumbs.join("/")}`}
                 href={`/blog/${node._sys.breadcrumbs.join("/")}`}
                 className={`grid grid-cols-1 overflow-hidden rounded-lg bg-card shadow-md`}
               >

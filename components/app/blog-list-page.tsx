@@ -1,9 +1,9 @@
 "use client"
 
 import { PostConnectionQuery } from "@/tina/__generated__/types"
-import { tinaField, useTina } from "tinacms/dist/react"
+import { useTina } from "tinacms/dist/react"
 
-import { BlogList, FeaturedReadingAlt } from "@/components/blog-list"
+import { BlogList } from "@/components/blog-list"
 import { Footer } from "@/components/footer"
 import { SiteHeader } from "@/components/site-header"
 

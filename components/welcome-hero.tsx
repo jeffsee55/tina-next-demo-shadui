@@ -197,7 +197,10 @@ const IconWrapper = () => {
       {icons.map((icon, i) => {
         const Icon = IconList[i] || IconList[0]
         return (
-          <div className={`ease absolute duration-200 ${icon.position}`}>
+          <div
+            key={icon.position}
+            className={`ease absolute duration-200 ${icon.position}`}
+          >
             <div className={`${sizes[icon.size]}`}>
               <Icon />
             </div>

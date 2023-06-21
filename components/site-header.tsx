@@ -31,6 +31,7 @@ export function SiteHeader(props: PageAndNavQuery["global"]) {
               {props.links?.map((link) => {
                 return (
                   <li
+                    key={link?.link}
                     data-tina-field={tinaField(link, "label")}
                     className="row-span-3"
                   >
@@ -58,7 +59,7 @@ export function SiteHeader(props: PageAndNavQuery["global"]) {
             <DialogContent className="flex flex-col justify-center py-12 sm:max-w-[425px]">
               {props.links?.map((link) => {
                 return (
-                  <Link href={link?.link || ""}>
+                  <Link key={link?.link} href={link?.link || ""}>
                     <Button variant="ghost" className="w-full text-lg">
                       {link?.label}
                     </Button>
@@ -96,6 +97,7 @@ export function SecondaryMenu(props: {
         const Icon = BasicIcons[platformName]
         return (
           <Link
+            key={`${platformLink}/${item?.handle}`}
             href={`${platformLink}/${item?.handle}`}
             target="_blank"
             rel="noreferrer"

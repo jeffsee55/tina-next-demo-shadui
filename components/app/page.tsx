@@ -39,7 +39,11 @@ export function ClientPage(props: {
             )
           }
           case "PageBlocksFeaturedReading": {
-            return <FeaturedReading {...block} />
+            return (
+              <div key={i} data-tina-field={tinaField(block)}>
+                <FeaturedReading {...block} />
+              </div>
+            )
           }
         }
       })}
