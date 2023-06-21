@@ -1,6 +1,6 @@
 "use client"
 
-import { Exact, PageQuery } from "@/tina/__generated__/types"
+import { Exact, PageAndNavQuery, PageQuery } from "@/tina/__generated__/types"
 import { tinaField, useTina } from "tinacms/dist/react"
 
 import { FeaturedReading } from "@/components/blog-list"
@@ -10,17 +10,18 @@ import { SiteHeader } from "@/components/site-header"
 import { WelcomeHero } from "@/components/welcome-hero"
 
 export function ClientPage(props: {
-  data: PageQuery
+  data: PageAndNavQuery
   variables: Exact<{
     relativePath: string
   }>
   query: string
 }) {
   const result = useTina(props)
+  console.log(result)
 
   return (
     <>
-      <SiteHeader />
+      <SiteHeader {...result.data.global} />
       {result.data.page.blocks?.map((block, i) => {
         switch (block?.__typename) {
           case "PageBlocksWelcomeHero": {
@@ -41,7 +42,7 @@ export function ClientPage(props: {
       })}
       {/* <FeatureList /> */}
       <FeaturedReading />
-      <Footer />
+      <Footer {...result.data.global} />
     </>
   )
 }
