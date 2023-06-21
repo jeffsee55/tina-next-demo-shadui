@@ -1,6 +1,10 @@
 import Image from "next/image"
 import Link from "next/link"
-import { Post, PostQuery } from "@/tina/__generated__/types"
+import {
+  Post,
+  PostConnectionQuery,
+  PostQuery,
+} from "@/tina/__generated__/types"
 import { ArrowRight } from "lucide-react"
 import { tinaField } from "tinacms/dist/react"
 
@@ -215,67 +219,87 @@ export function FeaturedReadingAlt({
   )
 }
 
-export function BlogList() {
+export function BlogList(props: PostConnectionQuery["postConnection"]) {
+  const firstPost = props.edges && props.edges[0]?.node
+  if (!firstPost) {
+    return null
+  }
+
   return (
-    <div className="grid gap-8 bg-muted lg:grid-cols-3">
-      <div className="order-1 col-span-2 grid grid-cols-1 gap-8 bg-muted lg:-order-1 lg:grid-cols-2">
-        {posts
-          .filter((p, i) => i !== 0)
-          .map((post) => {
+    <>
+      <FeaturedReadingAlt {...firstPost} />
+      <div className="grid gap-8 bg-muted lg:grid-cols-3">
+        <div className="order-1 col-span-2 grid grid-cols-1 gap-8 bg-muted lg:-order-1 lg:grid-cols-2">
+          {props.edges?.map((edge, i) => {
+            const node = edge?.node
+            if (!node || i === 0) {
+              return null
+            }
             return (
               <Link
-                href={`/blog/${post.slug}`}
+                href={`/blog/${node._sys.breadcrumbs.join("/")}`}
                 className={`grid grid-cols-1 overflow-hidden rounded-lg bg-card shadow-md`}
               >
                 <div className="relative col-span-1 px-8 pb-16 pt-8">
                   <h2
                     id="featured-post"
+                    data-tina-field={tinaField(node, "title")}
                     className="relative line-clamp-2 text-2xl font-bold text-card-foreground"
                   >
-                    <span className="relative">{post.title}</span>
+                    <span className="relative">{node.title}</span>
                   </h2>
-                  <p className="mt-8 line-clamp-2 text-lg leading-8 text-primary">
-                    {post.description}
+                  <p
+                    data-tina-field={tinaField(node, "title")}
+                    className="mt-8 line-clamp-2 text-lg leading-8 text-primary"
+                  >
+                    {node.description}
                   </p>
                   <div className="absolute inset-x-0 bottom-0 z-10 flex translate-y-1/2 justify-center">
-                    <div className="relative h-20 w-20 overflow-hidden rounded-full ring-4 ring-card md:ring-8">
+                    <div
+                      data-tina-field={tinaField(node.author, "imageUrl")}
+                      className="relative h-20 w-20 overflow-hidden rounded-full ring-4 ring-card md:ring-8"
+                    >
                       <Image
                         fill={true}
                         className="object-cover"
                         alt=""
-                        src={post.author.imageUrl}
+                        src={node.author?.imageUrl || ""}
                       />
                     </div>
                   </div>
                 </div>
-                <div className="relative min-h-[150px]">
+                <div
+                  className="relative min-h-[150px]"
+                  data-tina-field={tinaField(node, "image")}
+                >
                   <Image
                     fill={true}
                     className="absolute inset-0 object-cover"
                     alt=""
-                    src={post.image}
+                    src={node.image || ""}
                   />
                 </div>
               </Link>
             )
           })}
-      </div>
-      <div className="relative col-span-2 lg:col-span-1">
-        <div className="sticky top-24 z-10 flex items-center justify-center rounded-lg bg-pink-600 px-4 pb-24 pt-12 shadow-md dark:bg-card sm:px-12">
-          <div className="relative z-10">
-            <h3 className="mb-4 text-3xl font-bold text-card dark:text-primary lg:mb-12 lg:text-3xl">
-              Subscribe to our newsletter
-            </h3>
-            <div className="flex w-full max-w-sm items-center space-x-2">
-              <Input className="bg-card" type="email" placeholder="Email" />
-              <Button type="submit">Subscribe</Button>
+        </div>
+        <div className="relative col-span-2 lg:col-span-1">
+          <div className="sticky top-24 z-10 flex items-center justify-center rounded-lg bg-pink-600 px-4 pb-24 pt-12 shadow-md dark:bg-card sm:px-12">
+            <div className="relative z-10">
+              <h3 className="mb-4 text-3xl font-bold text-card dark:text-primary lg:mb-12 lg:text-3xl">
+                Subscribe to our newsletter
+              </h3>
+              <div className="flex w-full max-w-sm items-center space-x-2">
+                <Input className="bg-card" type="email" placeholder="Email" />
+                <Button type="submit">Subscribe</Button>
+              </div>
             </div>
-          </div>
-          <div className="absolute inset-0 overflow-hidden dark:opacity-70">
-            <Wavy className="absolute right-0 top-0 h-[700px] w-[700px] -translate-y-1/2 translate-x-1/2 rotate-45" />
+            <div className="absolute inset-0 overflow-hidden dark:opacity-70">
+              <Wavy className="absolute right-0 top-0 h-[700px] w-[700px] -translate-y-1/2 translate-x-1/2 rotate-45" />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }

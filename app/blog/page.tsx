@@ -1,18 +1,9 @@
-import { BlogList, FeaturedReadingAlt } from "@/components/blog-list"
-import { Footer } from "@/components/footer"
-import { SiteHeader } from "@/components/site-header"
+import client from "@/tina/__generated__/client"
 
-export default function BlogIndexPage() {
-  return (
-    <>
-      <SiteHeader />
-      <div className="bg-muted">
-        <div className="container flex flex-col gap-8 py-8">
-          <FeaturedReadingAlt asLink={true} />
-          <BlogList />
-        </div>
-      </div>
-      <Footer />
-    </>
-  )
+import { ClientBlogIndexPage } from "@/components/app/blog-list-page"
+
+export default async function BlogIndexPage() {
+  const result = await client.queries.postConnection()
+
+  return <ClientBlogIndexPage {...result} />
 }
