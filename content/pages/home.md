@@ -2,7 +2,7 @@
 title: Home
 blocks:
   - message: |
-      # Talk to llama,![](</Screenshot 2023-05-16 at 1.37.55 PM.png>)
+      # Talk to llama,
 
       # Share the **drama**
 
@@ -59,6 +59,7 @@ blocks:
     reference: content/posts/call-themes.md
     _template: featuredReading
 ---
+
 
 
 
