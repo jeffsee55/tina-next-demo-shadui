@@ -8,7 +8,7 @@ blocks:
 
       Connect, Communicate, and Create Memorable Moments with Llama Video Calls
 
-      Nooo. Let's actually do itTtttt!
+      You gonna eat yur tots?
     links:
       - link: /contact-us
         label: Get Started
@@ -59,6 +59,7 @@ blocks:
     reference: content/posts/call-themes.md
     _template: featuredReading
 ---
+
 
 
 
