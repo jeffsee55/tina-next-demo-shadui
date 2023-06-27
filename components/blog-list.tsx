@@ -148,15 +148,11 @@ export function FeaturedReadingAlt({ hasLink }: { hasLink?: boolean }) {
       <div className="relative col-span-6  px-4 py-8 sm:px-12 sm:py-16 lg:col-span-5 lg:min-h-[400px]">
         <h2
           id="featured-post"
-          data-tina-field={tinaField(post, "title")}
           className="relative text-2xl font-bold text-card-foreground md:text-3xl"
         >
           <span className="relative">{post.title}</span>
         </h2>
-        <p
-          data-tina-field={tinaField(post, "description")}
-          className="mt-8 text-lg leading-8 text-primary"
-        >
+        <p className="mt-8 text-lg leading-8 text-primary">
           {post.description}
         </p>
         {hasLink ? (
@@ -174,11 +170,7 @@ export function FeaturedReadingAlt({ hasLink }: { hasLink?: boolean }) {
           <Wavy className="absolute bottom-0 right-0 h-[700px] w-[700px] translate-x-1/2 translate-y-1/2 -rotate-45 opacity-10" />
         </div>
         <div className="absolute inset-x-0 bottom-0 z-10 flex translate-y-1/2 justify-center lg:bottom-16 lg:left-auto lg:right-0 lg:translate-x-1/2">
-          <div
-            // data-tina-field={tinaField(post, "author")}
-            data-tina-field={tinaField(post, "author")}
-            className="relative h-20 w-20 overflow-hidden rounded-full ring-4 ring-card sm:h-24 sm:w-24 md:ring-8"
-          >
+          <div className="relative h-20 w-20 overflow-hidden rounded-full ring-4 ring-card sm:h-24 sm:w-24 md:ring-8">
             <Image
               fill={true}
               sizes="200px"
@@ -189,10 +181,7 @@ export function FeaturedReadingAlt({ hasLink }: { hasLink?: boolean }) {
           </div>
         </div>
       </div>
-      <div
-        data-tina-field={tinaField(post, "image")}
-        className="relative col-span-6 aspect-[4/2] lg:col-span-7 lg:aspect-auto"
-      >
+      <div className="relative col-span-6 aspect-[4/2] lg:col-span-7 lg:aspect-auto">
         <Image
           fill={true}
           className="object-cover"
