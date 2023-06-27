@@ -2,7 +2,7 @@
 title: Home
 blocks:
   - message: |
-      # Talk to llama,
+      # Talk to llama,![](/nnneon.svg)
 
       # Share the **drama**
 
@@ -59,6 +59,7 @@ blocks:
     reference: content/posts/call-themes.md
     _template: featuredReading
 ---
+
 
 
 
