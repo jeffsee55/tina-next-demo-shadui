@@ -156,10 +156,8 @@ export function FeaturedReading() {
     </div>
   )
 }
-export function FeaturedReadingAlt({
-  asLink,
-  ...post
-}: PostQuery["post"] & { asLink?: boolean }) {
+export function FeaturedReadingAlt({ hasLink }: { hasLink?: boolean }) {
+  const post = posts[0]
   return (
     <div className="grid-rows-12 mx-auto grid grid-cols-1 overflow-hidden rounded-lg bg-card shadow-md lg:grid-cols-12 lg:grid-rows-1">
       <div className="relative col-span-6  px-4 py-8 sm:px-12 sm:py-16 lg:col-span-5 lg:min-h-[400px]">
@@ -176,7 +174,7 @@ export function FeaturedReadingAlt({
         >
           {post.description}
         </p>
-        {asLink ? (
+        {hasLink ? (
           <Link
             href={`/blog/${featuredPost.slug}`}
             className="mt-8 inline-flex w-16 items-center justify-between text-base font-semibold leading-6 text-card-foreground"
@@ -221,72 +219,53 @@ export function FeaturedReadingAlt({
   )
 }
 
-export function BlogList(props: PostConnectionQuery["postConnection"]) {
-  const firstPost = props.edges && props.edges[0]?.node
-  if (!firstPost) {
-    return null
-  }
-
+export function BlogList() {
   return (
     <>
-      <FeaturedReadingAlt {...firstPost} />
+      <FeaturedReadingAlt hasLink={true} />
       <div className="grid gap-8 bg-muted lg:grid-cols-3">
         <div className="order-1 col-span-2 grid grid-cols-1 gap-8 bg-muted lg:-order-1 lg:grid-cols-2">
-          {props.edges?.map((edge, i) => {
-            const node = edge?.node
-            if (!node || i === 0) {
-              return null
-            }
-            return (
-              <Link
-                key={`/blog/${node._sys.breadcrumbs.join("/")}`}
-                href={`/blog/${node._sys.breadcrumbs.join("/")}`}
-                className={`grid grid-cols-1 overflow-hidden rounded-lg bg-card shadow-md`}
-              >
-                <div className="relative col-span-1 px-8 pb-16 pt-8">
-                  <h2
-                    id="featured-post"
-                    data-tina-field={tinaField(node, "title")}
-                    className="relative line-clamp-2 text-2xl font-bold text-card-foreground"
-                  >
-                    <span className="relative">{node.title}</span>
-                  </h2>
-                  <p
-                    data-tina-field={tinaField(node, "title")}
-                    className="mt-8 line-clamp-2 text-lg leading-8 text-primary"
-                  >
-                    {node.description}
-                  </p>
-                  <div className="absolute inset-x-0 bottom-0 z-10 flex translate-y-1/2 justify-center">
-                    <div
-                      data-tina-field={
-                        node.author && tinaField(node?.author, "imageUrl")
-                      }
-                      className="relative h-20 w-20 overflow-hidden rounded-full ring-4 ring-card md:ring-8"
+          {posts
+            .filter((_, i) => i !== 0)
+            .map((post, i) => {
+              return (
+                <Link
+                  key={post.slug}
+                  href={`/blog/${post.slug}`}
+                  className={`grid grid-cols-1 overflow-hidden rounded-lg bg-card shadow-md`}
+                >
+                  <div className="relative col-span-1 px-8 pb-16 pt-8">
+                    <h2
+                      id="featured-post"
+                      className="relative line-clamp-2 text-2xl font-bold text-card-foreground"
                     >
-                      <Image
-                        fill={true}
-                        className="object-cover"
-                        alt=""
-                        src={node.author?.imageUrl || ""}
-                      />
+                      {post.title}
+                    </h2>
+                    <p className="mt-8 line-clamp-2 text-lg leading-8 text-primary">
+                      {post.description}
+                    </p>
+                    <div className="absolute inset-x-0 bottom-0 z-10 flex translate-y-1/2 justify-center">
+                      <div className="relative h-20 w-20 overflow-hidden rounded-full ring-4 ring-card md:ring-8">
+                        <Image
+                          fill={true}
+                          className="object-cover"
+                          alt=""
+                          src={post.author?.imageUrl || ""}
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div
-                  className="relative min-h-[150px]"
-                  data-tina-field={tinaField(node, "image")}
-                >
-                  <Image
-                    fill={true}
-                    className="absolute inset-0 object-cover"
-                    alt=""
-                    src={node.image || ""}
-                  />
-                </div>
-              </Link>
-            )
-          })}
+                  <div className="relative min-h-[150px]">
+                    <Image
+                      fill={true}
+                      className="absolute inset-0 object-cover"
+                      alt=""
+                      src={post.image || ""}
+                    />
+                  </div>
+                </Link>
+              )
+            })}
         </div>
         <div className="relative col-span-2 lg:col-span-1">
           <div className="sticky top-24 z-10 flex items-center justify-center rounded-lg bg-pink-600 px-4 pb-24 pt-12 shadow-md dark:bg-card sm:px-12">
