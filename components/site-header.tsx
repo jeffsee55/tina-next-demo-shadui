@@ -1,6 +1,6 @@
 import * as React from "react"
 import Link from "next/link"
-import { GlobalSocial, PageAndNavQuery } from "@/tina/__generated__/types"
+import { PageAndNavQuery } from "@/tina/__generated__/types"
 import { Menu } from "lucide-react"
 import { tinaField } from "tinacms/dist/react"
 
@@ -32,7 +32,7 @@ export function SiteHeader(props: PageAndNavQuery["global"]) {
                 return (
                   <li
                     key={link?.link}
-                    data-tina-field={tinaField(link, "label")}
+                    data-tina-field={link && tinaField(link, "label")}
                     className="row-span-3"
                   >
                     <Link href={link?.link || ""}>
@@ -103,7 +103,7 @@ export function SecondaryMenu(props: {
             rel="noreferrer"
           >
             <div
-              data-tina-field={tinaField(item, "platform")}
+              data-tina-field={item && tinaField(item, "platform")}
               className={buttonVariants({
                 size: "sm",
                 variant: "ghost",

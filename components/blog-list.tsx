@@ -8,7 +8,8 @@ import {
   PostQuery,
 } from "@/tina/__generated__/types"
 import { ArrowRight } from "lucide-react"
-import { tinaField } from "tinacms/dist/react"
+
+// import { tinaField } from "tinacms/dist/react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -115,7 +116,9 @@ export function FeaturedReading(props: FeatureBlock) {
               src={props.reference?.image || ""}
             />
             <div
-              data-tina-field={tinaField(props.reference, "image")}
+              data-tina-field={
+                props.reference && tinaField(props.reference, "image")
+              }
               className={`absolute inset-0 bg-gray-600 opacity-30 mix-blend-multiply dark:opacity-40`}
               aria-hidden="true"
             />
@@ -123,7 +126,9 @@ export function FeaturedReading(props: FeatureBlock) {
         </div>
         <div className="absolute right-12 top-12 sm:bottom-16 sm:right-16 sm:top-auto">
           <div
-            data-tina-field={tinaField(props.reference, "author")}
+            data-tina-field={
+              props.reference && tinaField(props.reference, "author")
+            }
             className="relative h-12 w-12 overflow-hidden rounded-full ring-4 ring-card sm:h-32 sm:w-32 md:ring-8"
           >
             <Image
@@ -144,13 +149,17 @@ export function FeaturedReading(props: FeatureBlock) {
           </h2>
           <h2
             id="featured-post"
-            data-tina-field={tinaField(props.reference, "title")}
+            data-tina-field={
+              props.reference && tinaField(props.reference, "title")
+            }
             className="relative mt-4 text-3xl font-bold text-white md:text-3xl xl:text-5xl"
           >
             <span className="relative">{props.reference?.title}</span>
           </h2>
           <p
-            data-tina-field={tinaField(props.reference, "description")}
+            data-tina-field={
+              props.reference && tinaField(props.reference, "description")
+            }
             className="mt-4 hidden text-lg leading-8 text-white lg:block"
           >
             {props.reference?.description}
@@ -273,7 +282,9 @@ export function BlogList(props: PostConnectionQuery["postConnection"]) {
                   </p>
                   <div className="absolute inset-x-0 bottom-0 z-10 flex translate-y-1/2 justify-center">
                     <div
-                      data-tina-field={tinaField(node?.author, "imageUrl")}
+                      data-tina-field={
+                        node.author && tinaField(node?.author, "imageUrl")
+                      }
                       className="relative h-20 w-20 overflow-hidden rounded-full ring-4 ring-card md:ring-8"
                     >
                       <Image
@@ -319,4 +330,42 @@ export function BlogList(props: PostConnectionQuery["postConnection"]) {
       </div>
     </>
   )
+}
+
+/**
+ * Grab the field name for the given attribute
+ * to signal to Tina which DOM element the field
+ * is working with.
+ */
+export const tinaField = <
+  T extends object & {
+    _content_source?: {
+      queryId: string
+      path: (number | string)[]
+    }
+  }
+>(
+  object: T,
+  property?: keyof Omit<T, "__typename" | "_sys">,
+  index?: number
+) => {
+  if (object._content_source) {
+    if (!property) {
+      return [
+        object._content_source?.queryId,
+        object._content_source.path.join("."),
+      ].join("---")
+    }
+    if (typeof index === "number") {
+      return [
+        object._content_source?.queryId,
+        [...object._content_source.path, property, index].join("."),
+      ].join("---")
+    }
+    return [
+      object._content_source?.queryId,
+      [...object._content_source.path, property].join("."),
+    ].join("---")
+  }
+  return ""
 }

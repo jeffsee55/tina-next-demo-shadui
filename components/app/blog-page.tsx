@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import { Exact, PostQuery } from "@/tina/__generated__/types"
+import { Exact, PostAndNavQuery } from "@/tina/__generated__/types"
 import { tinaField, useTina } from "tinacms/dist/react"
 import { TinaMarkdown } from "tinacms/dist/rich-text"
 
@@ -11,17 +11,16 @@ import { Footer } from "@/components/footer"
 import { SiteHeader } from "@/components/site-header"
 
 export function ClientBlogPage(props: {
-  data: PostQuery
+  data: PostAndNavQuery
   variables: Exact<{
     relativePath: string
   }>
   query: string
 }) {
   const result = useTina(props)
-  result.data.post
   return (
     <>
-      <SiteHeader />
+      <SiteHeader {...result.data.global} />
       <div className="relative bg-muted">
         <div className="container relative z-10 flex flex-col py-8">
           <FeaturedReadingAlt {...result.data.post} />
@@ -45,7 +44,7 @@ export function ClientBlogPage(props: {
           </div>
         </div>
       </div>
-      <Footer />
+      <Footer {...result.data.global} />
     </>
   )
 }
