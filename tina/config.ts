@@ -223,7 +223,7 @@ export default defineConfig({
     ],
   },
   // These values will be used by Tina Cloud when we're ready to deploy to our host
-  branch: "",
-  clientId: "",
-  token: "",
+  branch: process.env.VERCEL_GIT_COMMIT_REF || "",
+  clientId: process.env.TINA_CLIENT_ID || "",
+  token: process.env.TINA_TOKEN || "",
 })
