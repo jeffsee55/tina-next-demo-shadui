@@ -100,7 +100,7 @@ type Block = NonNullable<NonNullable<PageAndNavQuery["page"]["blocks"]>[number]>
 
 type FeatureBlock = Extract<Block, { __typename: "PageBlocksFeaturedReading" }>
 
-export function FeaturedReading(props: FeatureBlock) {
+export function FeaturedReading() {
   return (
     <div className="relative">
       <div className="absolute inset-0 overflow-hidden">
@@ -113,60 +113,37 @@ export function FeaturedReading(props: FeatureBlock) {
               fill={true}
               className="object-cover"
               alt=""
-              src={props.reference?.image || ""}
+              src={"/ssspot.svg"}
             />
             <div
-              data-tina-field={
-                props.reference && tinaField(props.reference, "image")
-              }
               className={`absolute inset-0 bg-gray-600 opacity-30 mix-blend-multiply dark:opacity-40`}
               aria-hidden="true"
             />
           </div>
         </div>
         <div className="absolute right-12 top-12 sm:bottom-16 sm:right-16 sm:top-auto">
-          <div
-            data-tina-field={
-              props.reference && tinaField(props.reference, "author")
-            }
-            className="relative h-12 w-12 overflow-hidden rounded-full ring-4 ring-card sm:h-32 sm:w-32 md:ring-8"
-          >
+          <div className="relative h-12 w-12 overflow-hidden rounded-full ring-4 ring-card sm:h-32 sm:w-32 md:ring-8">
             <Image
               fill={true}
               className="object-cover"
-              alt={props.reference?.author?.name || ""}
-              src={props.reference?.author?.imageUrl || ""}
+              alt={""}
+              src={"/authors/author-6.jpeg"}
             />
           </div>
         </div>
         <div className="absolute bottom-5 left-5 p-6 sm:w-2/3 sm:p-12 md:w-1/2">
-          <h2
-            id="featured-post"
-            className="md:text-md relative mt-4 inline-block border border-white px-2 py-1 text-sm font-bold uppercase tracking-widest text-white"
-            data-tina-field={tinaField(props, "label")}
-          >
-            <span className="relative">{props.label}</span>
+          <h2 className="md:text-md relative mt-4 inline-block border border-white px-2 py-1 text-sm font-bold uppercase tracking-widest text-white">
+            Latest
           </h2>
-          <h2
-            id="featured-post"
-            data-tina-field={
-              props.reference && tinaField(props.reference, "title")
-            }
-            className="relative mt-4 text-3xl font-bold text-white md:text-3xl xl:text-5xl"
-          >
-            <span className="relative">{props.reference?.title}</span>
+          <h2 className="relative mt-4 text-3xl font-bold text-white md:text-3xl xl:text-5xl">
+            Duis accumsan justo diam, eu convallis
           </h2>
-          <p
-            data-tina-field={
-              props.reference && tinaField(props.reference, "description")
-            }
-            className="mt-4 hidden text-lg leading-8 text-white lg:block"
-          >
-            {props.reference?.description}
+          <p className="mt-4 hidden text-lg leading-8 text-white lg:block">
+            {`Llama Call Themes: Express your personality and set the mood with our range of Llama Call Themes. Whether it's a professional meeting, a virtual party, or a casual catch-up, choose from a variety of llama-themed backgrounds and animations to enhance your video calls`}
           </p>
           <div className="mt-3 flex">
             <Link
-              href={`/blog/${props.reference?._sys.breadcrumbs.join("/")}`}
+              href={``}
               className="text-sm font-semibold leading-6 text-white"
               aria-describedby="featured-post"
             >

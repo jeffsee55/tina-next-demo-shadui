@@ -7,44 +7,32 @@ import { TinaMarkdown } from "tinacms/dist/rich-text"
 import { Button } from "@/components/ui/button"
 import { IconList } from "@/components/icons"
 
-export function WelcomeHero(props: PageBlocksWelcomeHero) {
+const links = [
+  { label: "Get started", link: "/", style: "button" },
+  { label: "Learn more", link: "/learn", style: "simple" },
+]
+
+export function WelcomeHero() {
   return (
     <section className="relative overflow-hidden">
       <div className="absolute inset-0 mx-auto h-full w-full max-w-[1600px]">
         <IconWrapper />
       </div>
       <div className="relative flex flex-col items-center gap-2 py-24">
-        <div
-          className="px-4 py-8 text-center"
-          data-tina-field={tinaField(props, "message")}
-        >
-          <TinaMarkdown
-            components={{
-              h1: (props) => (
-                <h1 className="text-5xl font-extrabold leading-tight tracking-tighter text-primary md:text-7xl">
-                  {props?.children}
-                </h1>
-              ),
-              bold: (props) => {
-                return (
-                  <span className="bg-gradient-to-b from-blue-300 to-pink-600 bg-clip-text text-transparent">
-                    {props?.children}
-                  </span>
-                )
-              },
-              p: (props) => {
-                return (
-                  <p className="mt-8 max-w-[700px] px-2 text-center text-xl text-muted-foreground">
-                    {props?.children}
-                  </p>
-                )
-              },
-            }}
-            content={props.message}
-          />
+        <div className="px-4 py-8 text-center">
+          <h1 className="text-5xl font-extrabold leading-tight tracking-tighter text-primary md:text-7xl">
+            Talk to llama, Share the{" "}
+            <span className="bg-gradient-to-b from-blue-300 to-pink-600 bg-clip-text text-transparent">
+              drama
+            </span>
+          </h1>
+          <p className="mt-8 max-w-[700px] px-2 text-center text-xl text-muted-foreground">
+            Connect, Communicate, and Create Memorable Moments with Llama Video
+            Calls
+          </p>
         </div>
         <div className="flex gap-5 py-12">
-          {props.links?.map((link) => {
+          {links?.map((link) => {
             switch (link?.style) {
               case "button": {
                 return (

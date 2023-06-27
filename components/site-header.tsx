@@ -1,8 +1,6 @@
 import * as React from "react"
 import Link from "next/link"
-import { PageAndNavQuery } from "@/tina/__generated__/types"
 import { Menu } from "lucide-react"
-import { tinaField } from "tinacms/dist/react"
 
 import { Button, buttonVariants } from "@/components/ui/button"
 import {
@@ -14,7 +12,16 @@ import {
 import { BasicIcons, Logo } from "@/components/icons"
 import { ThemeToggle } from "@/components/theme-toggle"
 
-export function SiteHeader(props: PageAndNavQuery["global"]) {
+const links = [
+  { label: "Home", link: "/" },
+  { label: "Blog", link: "/blog" },
+]
+const social = [
+  { handle: "llama-link", platform: "twitter" },
+  { handle: "llama-link", platform: "github" },
+]
+
+export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background">
       <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
@@ -28,13 +35,9 @@ export function SiteHeader(props: PageAndNavQuery["global"]) {
 
           <div className="hidden md:block">
             <ul className="flex items-center gap-3 p-6">
-              {props.links?.map((link) => {
+              {links?.map((link) => {
                 return (
-                  <li
-                    key={link?.link}
-                    data-tina-field={link && tinaField(link, "label")}
-                    className="row-span-3"
-                  >
+                  <li key={link?.link} className="row-span-3">
                     <Link href={link?.link || ""}>
                       <Button variant="ghost">{link?.label}</Button>
                     </Link>
@@ -57,7 +60,7 @@ export function SiteHeader(props: PageAndNavQuery["global"]) {
               </Button>
             </DialogTrigger>
             <DialogContent className="flex flex-col justify-center py-12 sm:max-w-[425px]">
-              {props.links?.map((link) => {
+              {links?.map((link) => {
                 return (
                   <Link key={link?.link} href={link?.link || ""}>
                     <Button variant="ghost" className="w-full text-lg">
@@ -67,27 +70,21 @@ export function SiteHeader(props: PageAndNavQuery["global"]) {
                 )
               })}
               <DialogFooter>
-                <SecondaryMenu
-                  items={props.social}
-                  className="flex w-full justify-center md:hidden"
-                />
+                <SecondaryMenu className="flex w-full justify-center md:hidden" />
               </DialogFooter>
             </DialogContent>
           </Dialog>
-          <SecondaryMenu items={props.social} className="hidden md:flex" />
+          <SecondaryMenu className="hidden md:flex" />
         </div>
       </div>
     </header>
   )
 }
 
-export function SecondaryMenu(props: {
-  items?: PageAndNavQuery["global"]["social"]
-  className?: string
-}) {
+export function SecondaryMenu(props: { className?: string }) {
   return (
     <nav className={`${props.className} items-center space-x-1`}>
-      {props.items?.map((item) => {
+      {social.map((item) => {
         const platformName = item?.platform as unknown as "github" | "twitter"
         const platformLinks = {
           github: "https://github.com",
@@ -103,7 +100,6 @@ export function SecondaryMenu(props: {
             rel="noreferrer"
           >
             <div
-              data-tina-field={item && tinaField(item, "platform")}
               className={buttonVariants({
                 size: "sm",
                 variant: "ghost",
