@@ -1,8 +1,5 @@
 import Link from "next/link"
-import { PageBlocksWelcomeHero } from "@/tina/__generated__/types"
 import { ArrowRight } from "lucide-react"
-import { tinaField } from "tinacms/dist/react"
-import { TinaMarkdown } from "tinacms/dist/rich-text"
 
 import { Button } from "@/components/ui/button"
 import { IconList } from "@/components/icons"
@@ -36,22 +33,14 @@ export function WelcomeHero() {
             switch (link?.style) {
               case "button": {
                 return (
-                  <Link
-                    key={link.link}
-                    href={link.link || ""}
-                    data-tina-field={tinaField(link, "link")}
-                  >
+                  <Link key={link.link} href={link.link || ""}>
                     <Button size="lg">{link.label}</Button>
                   </Link>
                 )
               }
               case "simple": {
                 return (
-                  <Link
-                    key={link.link}
-                    data-tina-field={tinaField(link, "link")}
-                    href={link?.link || ""}
-                  >
+                  <Link key={link.link} href={link?.link || ""}>
                     <Button size="lg" variant={"ghost"}>
                       Learn More
                       <ArrowRight className="ml-2 h-4 w-4" />

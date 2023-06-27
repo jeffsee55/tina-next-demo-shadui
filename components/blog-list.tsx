@@ -1,15 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
-import {
-  PageAndNavQuery,
-  PageBlocksFeaturedReading,
-  Post,
-  PostConnectionQuery,
-  PostQuery,
-} from "@/tina/__generated__/types"
 import { ArrowRight } from "lucide-react"
-
-// import { tinaField } from "tinacms/dist/react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -50,11 +41,11 @@ const authors = [
   },
 ]
 
-const posts = [
+export const posts = [
   {
     title: "Introducing LlamaLink Social",
     slug: "introducing-llama-link",
-    image: "ssspot.svg",
+    image: "/ssspot.svg",
     description:
       "We believe that communication should be fun, engaging, and memorable. With LlamaLink, you can enjoy video calls that not only serve their purpose but also bring a smile to your face and create lasting memories. Join us on this llama-filled adventure and experience video calling like never before.",
     author: authors[3],
@@ -93,12 +84,6 @@ const posts = [
     author: authors[5],
   },
 ]
-
-const featuredPost = posts[0]
-
-type Block = NonNullable<NonNullable<PageAndNavQuery["page"]["blocks"]>[number]>
-
-type FeatureBlock = Extract<Block, { __typename: "PageBlocksFeaturedReading" }>
 
 export function FeaturedReading() {
   return (
@@ -176,7 +161,7 @@ export function FeaturedReadingAlt({ hasLink }: { hasLink?: boolean }) {
         </p>
         {hasLink ? (
           <Link
-            href={`/blog/${featuredPost.slug}`}
+            href={`/blog/${post.slug}`}
             className="mt-8 inline-flex w-16 items-center justify-between text-base font-semibold leading-6 text-card-foreground"
           >
             <span className="">Read</span>

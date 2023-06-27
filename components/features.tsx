@@ -1,5 +1,3 @@
-import { tinaField } from "tinacms/dist/react"
-
 import { FeaturedIcons } from "@/components/icons"
 import { Wavy } from "@/components/wavy"
 
@@ -77,14 +75,10 @@ export function FeatureList() {
                 const Icon = FeaturedIcons[iconName]
                 return (
                   <div
-                    data-tina-field={tinaField(feature)}
                     key={i}
                     className="relative box-border flex flex-col gap-4 overflow-hidden rounded-xl border bg-card p-4 text-primary no-underline dark:border-neutral-800 md:p-16"
                   >
-                    <div
-                      data-tina-field={tinaField(feature, "icon")}
-                      className="relative -m-2 flex h-16 w-16 items-center justify-center rounded-lg"
-                    >
+                    <div className="relative -m-2 flex h-16 w-16 items-center justify-center rounded-lg">
                       <Icon />
                     </div>
                     <div>
